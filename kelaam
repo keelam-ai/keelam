@@ -1,0 +1,892 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Keelam Design Studio | Digital Design Innovators</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'keelam-purple': '#8a2be2',
+                        'keelam-blue': '#00f5ff',
+                        'keelam-pink': '#ff00ff',
+                        'keelam-dark': '#0f0f15',
+                    },
+                    fontFamily: {
+                        'sans': ['Poppins', 'sans-serif'],
+                    },
+                    animation: {
+                        'float': 'float 6s ease-in-out infinite',
+                        'pulse-slow': 'pulse 5s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        'text-gradient': 'text-gradient 8s ease infinite',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-20px)' },
+                        },
+                        'text-gradient': {
+                            '0%, 100%': { 'background-position': 'left center' },
+                            '50%': { 'background-position': 'right center' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap');
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #0f0f15;
+            color: white;
+            scroll-behavior: smooth;
+        }
+        
+        .gradient-text {
+            background: linear-gradient(90deg, #8a2be2, #00f5ff, #ff00ff, #8a2be2);
+            background-size: 300% 300%;
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            animation: text-gradient 8s ease infinite;
+        }
+        
+        .gradient-bg {
+            background: linear-gradient(135deg, #0f0f15 0%, #1e1e2a 100%);
+        }
+        
+        .service-card {
+            transition: all 0.3s ease;
+            transform-style: preserve-3d;
+        }
+        
+        .service-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 20px 25px -5px rgba(138, 43, 226, 0.3), 0 10px 10px -5px rgba(138, 43, 226, 0.1);
+        }
+        
+        .portfolio-item {
+            transition: all 0.3s ease;
+            overflow: hidden;
+        }
+        
+        .portfolio-item:hover .portfolio-overlay {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .portfolio-overlay {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.3s ease;
+        }
+        
+        .filter-btn.active {
+            background-color: #8a2be2;
+            color: white;
+        }
+        
+        .nav-link {
+            position: relative;
+        }
+        
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -2px;
+            left: 0;
+            background: linear-gradient(90deg, #8a2be2, #00f5ff);
+            transition: width 0.3s ease;
+        }
+        
+        .nav-link:hover::after {
+            width: 100%;
+        }
+        
+        .input-field {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.3s ease;
+        }
+        
+        .input-field:focus {
+            border-color: #8a2be2;
+            box-shadow: 0 0 0 3px rgba(138, 43, 226, 0.3);
+        }
+        
+        .floating-shape {
+            position: absolute;
+            opacity: 0.1;
+            z-index: 0;
+        }
+        
+        @keyframes rotate {
+            from {
+                transform: rotate(0deg);
+            }
+            to {
+                transform: rotate(360deg);
+            }
+        }
+        
+        .rotate-animation {
+            animation: rotate 20s linear infinite;
+        }
+        
+        .scroll-indicator {
+            animation: bounce 2s infinite;
+        }
+        
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {
+                transform: translateY(0);
+            }
+            40% {
+                transform: translateY(-20px);
+            }
+            60% {
+                transform: translateY(-10px);
+            }
+        }
+        
+        .glow {
+            box-shadow: 0 0 15px rgba(138, 43, 226, 0.7);
+        }
+        
+        .social-icon {
+            transition: all 0.3s ease;
+        }
+        
+        .social-icon:hover {
+            transform: translateY(-5px) scale(1.1);
+        }
+        
+        .mobile-menu {
+            transition: all 0.5s ease;
+            max-height: 0;
+            overflow: hidden;
+        }
+        
+        .mobile-menu.open {
+            max-height: 500px;
+        }
+    </style>
+</head>
+<body class="relative overflow-x-hidden">
+    <!-- Floating shapes background -->
+    <div class="floating-shape w-64 h-64 rounded-full bg-keelam-purple top-20 -left-32 opacity-10 rotate-animation"></div>
+    <div class="floating-shape w-96 h-96 rounded-full bg-keelam-blue -bottom-40 -right-40 opacity-10 rotate-animation" style="animation-direction: reverse;"></div>
+    
+    <!-- Navigation -->
+    <nav class="fixed w-full z-50 bg-keelam-dark bg-opacity-90 backdrop-blur-md border-b border-gray-800">
+        <div class="container mx-auto px-6 py-4">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center">
+                    <a href="#" class="text-2xl font-bold gradient-text">KEELAM</a>
+                </div>
+                
+                <!-- Desktop Navigation -->
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="#home" class="nav-link text-white hover:text-keelam-blue transition">Home</a>
+                    <a href="#services" class="nav-link text-white hover:text-keelam-blue transition">Services</a>
+                    <a href="#portfolio" class="nav-link text-white hover:text-keelam-blue transition">Portfolio</a>
+                    <a href="#about" class="nav-link text-white hover:text-keelam-blue transition">About</a>
+                    <a href="#contact" class="nav-link text-white hover:text-keelam-blue transition">Contact</a>
+                    <a href="#contact" class="px-6 py-2 bg-gradient-to-r from-keelam-purple to-keelam-blue rounded-full font-medium hover:opacity-90 transition">Get a Quote</a>
+                </div>
+                
+                <!-- Mobile menu button -->
+                <div class="md:hidden">
+                    <button id="mobile-menu-button" class="text-white focus:outline-none">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="mobile-menu md:hidden bg-keelam-dark border-t border-gray-800">
+            <div class="container mx-auto px-6 py-4 flex flex-col space-y-4">
+                <a href="#home" class="text-white hover:text-keelam-blue transition">Home</a>
+                <a href="#services" class="text-white hover:text-keelam-blue transition">Services</a>
+                <a href="#portfolio" class="text-white hover:text-keelam-blue transition">Portfolio</a>
+                <a href="#about" class="text-white hover:text-keelam-blue transition">About</a>
+                <a href="#contact" class="text-white hover:text-keelam-blue transition">Contact</a>
+                <a href="#contact" class="px-6 py-2 bg-gradient-to-r from-keelam-purple to-keelam-blue rounded-full font-medium hover:opacity-90 transition text-center">Get a Quote</a>
+            </div>
+        </div>
+    </nav>
+    
+    <!-- Hero Section -->
+    <section id="home" class="min-h-screen flex items-center justify-center relative overflow-hidden pt-20">
+        <div class="container mx-auto px-6 py-20 flex flex-col md:flex-row items-center">
+            <div class="md:w-1/2 z-10">
+                <h1 class="text-4xl md:text-6xl font-bold mb-6 leading-tight">
+                    <span class="gradient-text">Digital Design</span><br>
+                    That <span class="text-keelam-blue">Inspires</span> & <span class="text-keelam-pink">Engages</span>
+                </h1>
+                <p class="text-lg text-gray-300 mb-8 max-w-lg">
+                    We craft stunning digital experiences that captivate your audience and elevate your brand. From websites to apps, we bring your vision to life with innovative design solutions.
+                </p>
+                <div class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4">
+                    <a href="#portfolio" class="px-8 py-3 bg-gradient-to-r from-keelam-purple to-keelam-blue rounded-full font-medium hover:opacity-90 transition text-center">View Our Work</a>
+                    <a href="#services" class="px-8 py-3 border border-keelam-purple rounded-full font-medium hover:bg-keelam-purple hover:bg-opacity-10 transition text-center">Our Services</a>
+                </div>
+            </div>
+            
+            <div class="md:w-1/2 mt-16 md:mt-0 z-10">
+                <div class="relative">
+                    <div class="w-full h-96 bg-gradient-to-br from-keelam-purple to-keelam-blue rounded-3xl overflow-hidden shadow-2xl transform rotate-3">
+                        <img src="https://images.unsplash.com/photo-1551650975-87deedd944c3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1974&q=80" alt="Digital Design" class="w-full h-full object-cover mix-blend-overlay opacity-80">
+                    </div>
+                    <div class="absolute -bottom-10 -left-10 w-48 h-48 bg-keelam-pink rounded-2xl shadow-xl overflow-hidden transform -rotate-6">
+                        <img src="https://images.unsplash.com/photo-1547658719-da2b51169166?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1964&q=80" alt="App Design" class="w-full h-full object-cover mix-blend-overlay opacity-80">
+                    </div>
+                    <div class="absolute -top-10 -right-10 w-40 h-40 bg-keelam-blue rounded-2xl shadow-xl overflow-hidden transform rotate-12">
+                        <img src="https://images.unsplash.com/photo-1542744173-8e7e53415bb0?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" alt="Graphic Design" class="w-full h-full object-cover mix-blend-overlay opacity-80">
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 flex flex-col items-center scroll-indicator">
+            <span class="text-sm text-gray-400 mb-2">Scroll Down</span>
+            <svg class="w-6 h-6 text-keelam-blue animate-bounce" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
+            </svg>
+        </div>
+    </section>
+    
+    <!-- Clients Section -->
+    <section class="py-12 bg-gradient-to-r from-keelam-dark to-gray-900">
+        <div class="container mx-auto px-6">
+            <h2 class="text-2xl text-center text-gray-400 mb-12">Trusted by innovative brands worldwide</h2>
+            <div class="flex flex-wrap justify-center items-center gap-12 opacity-80">
+                <img src="https://via.placeholder.com/150x60?text=Brand+1" alt="Brand 1" class="h-8 grayscale hover:grayscale-0 transition">
+                <img src="https://via.placeholder.com/150x60?text=Brand+2" alt="Brand 2" class="h-8 grayscale hover:grayscale-0 transition">
+                <img src="https://via.placeholder.com/150x60?text=Brand+3" alt="Brand 3" class="h-8 grayscale hover:grayscale-0 transition">
+                <img src="https://via.placeholder.com/150x60?text=Brand+4" alt="Brand 4" class="h-8 grayscale hover:grayscale-0 transition">
+                <img src="https://via.placeholder.com/150x60?text=Brand+5" alt="Brand 5" class="h-8 grayscale hover:grayscale-0 transition">
+            </div>
+        </div>
+    </section>
+    
+    <!-- Services Section -->
+    <section id="services" class="py-20 gradient-bg">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16">
+                <span class="text-keelam-blue font-medium">WHAT WE DO</span>
+                <h2 class="text-4xl font-bold mt-2 mb-4">Our <span class="gradient-text">Design Services</span></h2>
+                <p class="max-w-2xl mx-auto text-gray-400">We offer comprehensive digital design solutions tailored to your business needs and goals.</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Website Design -->
+                <div class="service-card bg-gray-900 rounded-2xl p-8 border border-gray-800 hover:border-keelam-purple transition">
+                    <div class="w-16 h-16 bg-keelam-purple bg-opacity-20 rounded-xl flex items-center justify-center mb-6">
+                        <i class="fas fa-globe text-3xl text-keelam-purple"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-4">Website Design</h3>
+                    <p class="text-gray-400 mb-6">Stunning, responsive websites that engage visitors and convert them into customers.</p>
+                    <ul class="space-y-3 mb-6">
+                        <li class="flex items-center">
+                            <i class="fas fa-check-circle text-keelam-blue mr-3"></i>
+                            <span>Custom UI/UX Design</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check-circle text-keelam-blue mr-3"></i>
+                            <span>Responsive Development</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check-circle text-keelam-blue mr-3"></i>
+                            <span>SEO Optimization</span>
+                        </li>
+                    </ul>
+                    <a href="#" class="text-keelam-blue hover:text-keelam-purple font-medium flex items-center">
+                        View Case Studies
+                        <i class="fas fa-arrow-right ml-2"></i>
+                    </a>
+                </div>
+                
+                <!-- App Design -->
+                <div class="service-card bg-gray-900 rounded-2xl p-8 border border-gray-800 hover:border-keelam-blue transition">
+                    <div class="w-16 h-16 bg-keelam-blue bg-opacity-20 rounded-xl flex items-center justify-center mb-6">
+                        <i class="fas fa-mobile-alt text-3xl text-keelam-blue"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-4">App Design</h3>
+                    <p class="text-gray-400 mb-6">Intuitive mobile applications with seamless user experiences across all devices.</p>
+                    <ul class="space-y-3 mb-6">
+                        <li class="flex items-center">
+                            <i class="fas fa-check-circle text-keelam-purple mr-3"></i>
+                            <span>iOS & Android Design</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check-circle text-keelam-purple mr-3"></i>
+                            <span>User Flow Optimization</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check-circle text-keelam-purple mr-3"></i>
+                            <span>Prototyping & Testing</span>
+                        </li>
+                    </ul>
+                    <a href="#" class="text-keelam-purple hover:text-keelam-blue font-medium flex items-center">
+                        See Our Apps
+                        <i class="fas fa-arrow-right ml-2"></i>
+                    </a>
+                </div>
+                
+                <!-- Graphic Design -->
+                <div class="service-card bg-gray-900 rounded-2xl p-8 border border-gray-800 hover:border-keelam-pink transition">
+                    <div class="w-16 h-16 bg-keelam-pink bg-opacity-20 rounded-xl flex items-center justify-center mb-6">
+                        <i class="fas fa-paint-brush text-3xl text-keelam-pink"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-4">Graphic Design</h3>
+                    <p class="text-gray-400 mb-6">Visually compelling graphics that strengthen your brand identity and messaging.</p>
+                    <ul class="space-y-3 mb-6">
+                        <li class="flex items-center">
+                            <i class="fas fa-check-circle text-keelam-pink mr-3"></i>
+                            <span>Brand Identity</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check-circle text-keelam-pink mr-3"></i>
+                            <span>Marketing Materials</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check-circle text-keelam-pink mr-3"></i>
+                            <span>Social Media Graphics</span>
+                        </li>
+                    </ul>
+                    <a href="#" class="text-keelam-pink hover:text-purple-400 font-medium flex items-center">
+                        Explore Gallery
+                        <i class="fas fa-arrow-right ml-2"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Portfolio Section -->
+    <section id="portfolio" class="py-20 bg-keelam-dark">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16">
+                <span class="text-keelam-pink font-medium">OUR WORK</span>
+                <h2 class="text-4xl font-bold mt-2 mb-4">Featured <span class="gradient-text">Projects</span></h2>
+                <p class="max-w-2xl mx-auto text-gray-400">Explore our portfolio of innovative design solutions that have helped businesses grow.</p>
+            </div>
+            
+            <!-- Filter Buttons -->
+            <div class="flex flex-wrap justify-center gap-4 mb-12">
+                <button class="filter-btn px-6 py-2 rounded-full border border-gray-700 hover:bg-keelam-purple hover:border-keelam-purple transition active" data-filter="all">All</button>
+                <button class="filter-btn px-6 py-2 rounded-full border border-gray-700 hover:bg-keelam-purple hover:border-keelam-purple transition" data-filter="website">Websites</button>
+                <button class="filter-btn px-6 py-2 rounded-full border border-gray-700 hover:bg-keelam-purple hover:border-keelam-purple transition" data-filter="app">Apps</button>
+                <button class="filter-btn px-6 py-2 rounded-full border border-gray-700 hover:bg-keelam-purple hover:border-keelam-purple transition" data-filter="graphic">Graphics</button>
+            </div>
+            
+            <!-- Portfolio Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Portfolio Item 1 -->
+                <div class="portfolio-item rounded-2xl overflow-hidden relative" data-category="website">
+                    <img src="https://images.unsplash.com/photo-1551650975-87deedd944c3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1974&q=80" alt="Project 1" class="w-full h-80 object-cover">
+                    <div class="portfolio-overlay absolute inset-0 bg-gradient-to-t from-black to-transparent p-6 flex flex-col justify-end">
+                        <span class="text-keelam-blue text-sm font-medium">Website Design</span>
+                        <h3 class="text-2xl font-bold mt-1 mb-2">E-commerce Platform</h3>
+                        <p class="text-gray-300 mb-4">A modern online store with seamless shopping experience and intuitive navigation.</p>
+                        <a href="#" class="text-white font-medium flex items-center">
+                            View Project
+                            <i class="fas fa-arrow-right ml-2"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Portfolio Item 2 -->
+                <div class="portfolio-item rounded-2xl overflow-hidden relative" data-category="app">
+                    <img src="https://images.unsplash.com/photo-1547658719-da2b51169166?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1964&q=80" alt="Project 2" class="w-full h-80 object-cover">
+                    <div class="portfolio-overlay absolute inset-0 bg-gradient-to-t from-black to-transparent p-6 flex flex-col justify-end">
+                        <span class="text-keelam-purple text-sm font-medium">Mobile App</span>
+                        <h3 class="text-2xl font-bold mt-1 mb-2">Fitness Tracker App</h3>
+                        <p class="text-gray-300 mb-4">A health and fitness application with personalized workout plans and progress tracking.</p>
+                        <a href="#" class="text-white font-medium flex items-center">
+                            View Project
+                            <i class="fas fa-arrow-right ml-2"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Portfolio Item 3 -->
+                <div class="portfolio-item rounded-2xl overflow-hidden relative" data-category="graphic">
+                    <img src="https://images.unsplash.com/photo-1542744173-8e7e53415bb0?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" alt="Project 3" class="w-full h-80 object-cover">
+                    <div class="portfolio-overlay absolute inset-0 bg-gradient-to-t from-black to-transparent p-6 flex flex-col justify-end">
+                        <span class="text-keelam-pink text-sm font-medium">Brand Identity</span>
+                        <h3 class="text-2xl font-bold mt-1 mb-2">Coffee Brand Packaging</h3>
+                        <p class="text-gray-300 mb-4">Complete brand identity and packaging design for an artisanal coffee company.</p>
+                        <a href="#" class="text-white font-medium flex items-center">
+                            View Project
+                            <i class="fas fa-arrow-right ml-2"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Portfolio Item 4 -->
+                <div class="portfolio-item rounded-2xl overflow-hidden relative" data-category="website">
+                    <img src="https://images.unsplash.com/photo-1467232004584-a241de8bcf5d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2069&q=80" alt="Project 4" class="w-full h-80 object-cover">
+                    <div class="portfolio-overlay absolute inset-0 bg-gradient-to-t from-black to-transparent p-6 flex flex-col justify-end">
+                        <span class="text-keelam-blue text-sm font-medium">Website Design</span>
+                        <h3 class="text-2xl font-bold mt-1 mb-2">Corporate Website</h3>
+                        <p class="text-gray-300 mb-4">A professional website for a financial services firm with clean, trustworthy design.</p>
+                        <a href="#" class="text-white font-medium flex items-center">
+                            View Project
+                            <i class="fas fa-arrow-right ml-2"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Portfolio Item 5 -->
+                <div class="portfolio-item rounded-2xl overflow-hidden relative" data-category="app">
+                    <img src="https://images.unsplash.com/photo-1555774698-0b77e0d5fac6?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" alt="Project 5" class="w-full h-80 object-cover">
+                    <div class="portfolio-overlay absolute inset-0 bg-gradient-to-t from-black to-transparent p-6 flex flex-col justify-end">
+                        <span class="text-keelam-purple text-sm font-medium">Mobile App</span>
+                        <h3 class="text-2xl font-bold mt-1 mb-2">Travel Planning App</h3>
+                        <p class="text-gray-300 mb-4">An intuitive travel application that helps users plan and book their perfect vacation.</p>
+                        <a href="#" class="text-white font-medium flex items-center">
+                            View Project
+                            <i class="fas fa-arrow-right ml-2"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Portfolio Item 6 -->
+                <div class="portfolio-item rounded-2xl overflow-hidden relative" data-category="graphic">
+                    <img src="https://images.unsplash.com/photo-1498837167922-ddd27525d352?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" alt="Project 6" class="w-full h-80 object-cover">
+                    <div class="portfolio-overlay absolute inset-0 bg-gradient-to-t from-black to-transparent p-6 flex flex-col justify-end">
+                        <span class="text-keelam-pink text-sm font-medium">Marketing Materials</span>
+                        <h3 class="text-2xl font-bold mt-1 mb-2">Restaurant Menu Design</h3>
+                        <p class="text-gray-300 mb-4">Creative menu design and branding for a high-end culinary establishment.</p>
+                        <a href="#" class="text-white font-medium flex items-center">
+                            View Project
+                            <i class="fas fa-arrow-right ml-2"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="text-center mt-12">
+                <a href="#" class="px-8 py-3 border border-keelam-purple rounded-full font-medium hover:bg-keelam-purple hover:bg-opacity-10 transition inline-flex items-center">
+                    View All Projects
+                    <i class="fas fa-arrow-right ml-3"></i>
+                </a>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Testimonials Section -->
+    <section class="py-20 bg-gradient-to-br from-keelam-dark to-gray-900">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16">
+                <span class="text-keelam-blue font-medium">CLIENT FEEDBACK</span>
+                <h2 class="text-4xl font-bold mt-2 mb-4">What Our <span class="gradient-text">Clients Say</span></h2>
+                <p class="max-w-2xl mx-auto text-gray-400">Don't just take our word for it - hear from businesses we've helped transform.</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Testimonial 1 -->
+                <div class="bg-gray-900 rounded-2xl p-8 border border-gray-800 hover:border-keelam-purple transition">
+                    <div class="flex items-center mb-6">
+                        <div class="w-12 h-12 rounded-full overflow-hidden mr-4">
+                            <img src="https://randomuser.me/api/portraits/women/43.jpg" alt="Client" class="w-full h-full object-cover">
+                        </div>
+                        <div>
+                            <h4 class="font-bold">Sarah Johnson</h4>
+                            <span class="text-sm text-gray-400">CEO, TechStart Inc.</span>
+                        </div>
+                    </div>
+                    <p class="text-gray-300 mb-6">"Keelam transformed our outdated website into a modern, high-converting platform. Their attention to detail and creative approach exceeded our expectations."</p>
+                    <div class="flex text-yellow-400">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                </div>
+                
+                <!-- Testimonial 2 -->
+                <div class="bg-gray-900 rounded-2xl p-8 border border-gray-800 hover:border-keelam-blue transition">
+                    <div class="flex items-center mb-6">
+                        <div class="w-12 h-12 rounded-full overflow-hidden mr-4">
+                            <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Client" class="w-full h-full object-cover">
+                        </div>
+                        <div>
+                            <h4 class="font-bold">Michael Chen</h4>
+                            <span class="text-sm text-gray-400">Founder, FitTrack</span>
+                        </div>
+                    </div>
+                    <p class="text-gray-300 mb-6">"The app design Keelam created for us perfectly captured our brand identity while delivering an exceptional user experience. Our downloads have tripled!"</p>
+                    <div class="flex text-yellow-400">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                </div>
+                
+                <!-- Testimonial 3 -->
+                <div class="bg-gray-900 rounded-2xl p-8 border border-gray-800 hover:border-keelam-pink transition">
+                    <div class="flex items-center mb-6">
+                        <div class="w-12 h-12 rounded-full overflow-hidden mr-4">
+                            <img src="https://randomuser.me/api/portraits/women/65.jpg" alt="Client" class="w-full h-full object-cover">
+                        </div>
+                        <div>
+                            <h4 class="font-bold">Emma Rodriguez</h4>
+                            <span class="text-sm text-gray-400">Marketing Director, BeanThere</span>
+                        </div>
+                    </div>
+                    <p class="text-gray-300 mb-6">"Our new packaging design by Keelam has completely revitalized our brand. Sales are up 40% and we're getting compliments daily on the fresh look."</p>
+                    <div class="flex text-yellow-400">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star-half-alt"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- About Section -->
+    <section id="about" class="py-20 gradient-bg">
+        <div class="container mx-auto px-6">
+            <div class="flex flex-col md:flex-row items-center">
+                <div class="md:w-1/2 mb-12 md:mb-0 md:pr-12">
+                    <span class="text-keelam-pink font-medium">OUR STORY</span>
+                    <h2 class="text-4xl font-bold mt-2 mb-6">About <span class="gradient-text">Keelam Design Studio</span></h2>
+                    <p class="text-gray-300 mb-6">Founded in 2018, Keelam Design Studio has grown from a small creative team to a full-service digital design agency serving clients across multiple industries.</p>
+                    <p class="text-gray-300 mb-8">We believe in the power of design to solve problems, tell stories, and create meaningful connections between brands and their audiences. Our approach combines strategic thinking with artistic excellence to deliver results that matter.</p>
+                    
+                    <div class="grid grid-cols-2 gap-6 mb-8">
+                        <div>
+                            <h3 class="text-2xl font-bold gradient-text mb-2">50+</h3>
+                            <p class="text-gray-400">Projects Completed</p>
+                        </div>
+                        <div>
+                            <h3 class="text-2xl font-bold gradient-text mb-2">100%</h3>
+                            <p class="text-gray-400">Client Satisfaction</p>
+                        </div>
+                        <div>
+                            <h3 class="text-2xl font-bold gradient-text mb-2">15+</h3>
+                            <p class="text-gray-400">Industry Awards</p>
+                        </div>
+                        <div>
+                            <h3 class="text-2xl font-bold gradient-text mb-2">5</h3>
+                            <p class="text-gray-400">Creative Experts</p>
+                        </div>
+                    </div>
+                    
+                    <a href="#contact" class="px-8 py-3 bg-gradient-to-r from-keelam-purple to-keelam-blue rounded-full font-medium hover:opacity-90 transition inline-flex items-center">
+                        Get in Touch
+                        <i class="fas fa-arrow-right ml-3"></i>
+                    </a>
+                </div>
+                
+                <div class="md:w-1/2 relative">
+                    <div class="relative">
+                        <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" alt="Our Team" class="rounded-2xl shadow-2xl w-full">
+                        <div class="absolute -bottom-6 -right-6 w-32 h-32 bg-keelam-purple rounded-xl shadow-xl overflow-hidden border-4 border-keelam-dark">
+                            <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1976&q=80" alt="Team Member" class="w-full h-full object-cover">
+                        </div>
+                    </div>
+                    
+                    <div class="absolute -top-10 -left-10 w-24 h-24 bg-keelam-blue rounded-xl shadow-xl overflow-hidden border-4 border-keelam-dark">
+                        <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1974&q=80" alt="Team Member" class="w-full h-full object-cover">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Process Section -->
+    <section class="py-20 bg-keelam-dark">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16">
+                <span class="text-keelam-blue font-medium">OUR APPROACH</span>
+                <h2 class="text-4xl font-bold mt-2 mb-4">The Keelam <span class="gradient-text">Design Process</span></h2>
+                <p class="max-w-2xl mx-auto text-gray-400">A structured yet flexible approach that ensures exceptional results every time.</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <!-- Step 1 -->
+                <div class="text-center p-6 bg-gray-900 rounded-xl border border-gray-800 hover:border-keelam-purple transition">
+                    <div class="w-16 h-16 bg-keelam-purple bg-opacity-20 rounded-full flex items-center justify-center mx-auto mb-6">
+                        <span class="text-2xl font-bold text-keelam-purple">1</span>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">Discover</h3>
+                    <p class="text-gray-400">We learn about your business, goals, and audience to inform our design strategy.</p>
+                </div>
+                
+                <!-- Step 2 -->
+                <div class="text-center p-6 bg-gray-900 rounded-xl border border-gray-800 hover:border-keelam-blue transition">
+                    <div class="w-16 h-16 bg-keelam-blue bg-opacity-20 rounded-full flex items-center justify-center mx-auto mb-6">
+                        <span class="text-2xl font-bold text-keelam-blue">2</span>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">Design</h3>
+                    <p class="text-gray-400">Our creative team develops concepts and prototypes tailored to your needs.</p>
+                </div>
+                
+                <!-- Step 3 -->
+                <div class="text-center p-6 bg-gray-900 rounded-xl border border-gray-800 hover:border-keelam-pink transition">
+                    <div class="w-16 h-16 bg-keelam-pink bg-opacity-20 rounded-full flex items-center justify-center mx-auto mb-6">
+                        <span class="text-2xl font-bold text-keelam-pink">3</span>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">Develop</h3>
+                    <p class="text-gray-400">We bring the designs to life with clean, efficient code and thorough testing.</p>
+                </div>
+                
+                <!-- Step 4 -->
+                <div class="text-center p-6 bg-gray-900 rounded-xl border border-gray-800 hover:border-keelam-purple transition">
+                    <div class="w-16 h-16 bg-keelam-purple bg-opacity-20 rounded-full flex items-center justify-center mx-auto mb-6">
+                        <span class="text-2xl font-bold text-keelam-purple">4</span>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">Deliver</h3>
+                    <p class="text-gray-400">Final refinements and launch with ongoing support as needed.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- CTA Section -->
+    <section class="py-20 bg-gradient-to-r from-keelam-purple to-keelam-blue">
+        <div class="container mx-auto px-6 text-center">
+            <h2 class="text-3xl md:text-4xl font-bold mb-6">Ready to Elevate Your Digital Presence?</h2>
+            <p class="text-xl text-white text-opacity-90 max-w-3xl mx-auto mb-8">Let's create something amazing together. Get in touch with our team to discuss your project.</p>
+            <a href="#contact" class="px-8 py-3 bg-white text-keelam-purple rounded-full font-bold hover:bg-opacity-90 transition inline-flex items-center">
+                Start Your Project
+                <i class="fas fa-arrow-right ml-3"></i>
+            </a>
+        </div>
+    </section>
+    
+    <!-- Contact Section -->
+    <section id="contact" class="py-20 bg-keelam-dark">
+        <div class="container mx-auto px-6">
+            <div class="flex flex-col md:flex-row">
+                <div class="md:w-1/2 mb-12 md:mb-0 md:pr-12">
+                    <span class="text-keelam-blue font-medium">GET IN TOUCH</span>
+                    <h2 class="text-4xl font-bold mt-2 mb-6">Let's <span class="gradient-text">Work Together</span></h2>
+                    <p class="text-gray-300 mb-8">Have a project in mind or questions about our services? Reach out to us using the form or contact details below.</p>
+                    
+                    <div class="space-y-6 mb-8">
+                        <div class="flex items-start">
+                            <div class="w-10 h-10 bg-keelam-purple bg-opacity-20 rounded-lg flex items-center justify-center mr-4 mt-1">
+                                <i class="fas fa-envelope text-keelam-purple"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold mb-1">Email Us</h4>
+                                <a href="mailto:abdulmaleeq8@gmail.com" class="text-gray-400 hover:text-keelam-blue transition">abdulmaleeq8@gmail.com</a>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start">
+                            <div class="w-10 h-10 bg-keelam-blue bg-opacity-20 rounded-lg flex items-center justify-center mr-4 mt-1">
+                                <i class="fas fa-phone-alt text-keelam-blue"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold mb-1">Call Us</h4>
+                                <a href="tel:+2349067002013" class="text-gray-400 hover:text-keelam-blue transition">+234 9067002013</a>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start">
+                            <div class="w-10 h-10 bg-keelam-pink bg-opacity-20 rounded-lg flex items-center justify-center mr-4 mt-1">
+                                <i class="fas fa-map-marker-alt text-keelam-pink"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold mb-1">Visit Us</h4>
+                                <p class="text-gray-400">123 Design Street, Creative District<br>Lagos, Nigeria</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-8">
+                        <h4 class="font-bold mb-4">Follow Us</h4>
+                        <div class="flex space-x-4">
+                            <a href="#" class="social-icon w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-keelam-purple">
+                                <i class="fab fa-facebook-f"></i>
+                            </a>
+                            <a href="#" class="social-icon w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-keelam-blue">
+                                <i class="fab fa-twitter"></i>
+                            </a>
+                            <a href="#" class="social-icon w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-keelam-pink">
+                                <i class="fab fa-instagram"></i>
+                            </a>
+                            <a href="#" class="social-icon w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-purple-600">
+                                <i class="fab fa-dribbble"></i>
+                            </a>
+                            <a href="#" class="social-icon w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-blue-500">
+                                <i class="fab fa-linkedin-in"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="md:w-1/2">
+                    <form class="space-y-6">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div>
+                                <label for="name" class="block text-gray-300 mb-2">Your Name</label>
+                                <input type="text" id="name" class="w-full px-4 py-3 rounded-lg input-field focus:outline-none focus:ring-2 focus:ring-keelam-purple">
+                            </div>
+                            <div>
+                                <label for="email" class="block text-gray-300 mb-2">Email Address</label>
+                                <input type="email" id="email" class="w-full px-4 py-3 rounded-lg input-field focus:outline-none focus:ring-2 focus:ring-keelam-purple">
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <label for="subject" class="block text-gray-300 mb-2">Subject</label>
+                            <input type="text" id="subject" class="w-full px-4 py-3 rounded-lg input-field focus:outline-none focus:ring-2 focus:ring-keelam-purple">
+                        </div>
+                        
+                        <div>
+                            <label for="message" class="block text-gray-300 mb-2">Your Message</label>
+                            <textarea id="message" rows="5" class="w-full px-4 py-3 rounded-lg input-field focus:outline-none focus:ring-2 focus:ring-keelam-purple"></textarea>
+                        </div>
+                        
+                        <button type="submit" class="w-full px-6 py-3 bg-gradient-to-r from-keelam-purple to-keelam-blue rounded-full font-medium hover:opacity-90 transition">Send Message</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Map Section -->
+    <div class="h-96 w-full bg-gray-800 overflow-hidden">
+        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3964.521260322283!2d3.379295414266405!3d6.465622645329475!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x103b8b2ae68280c1%3A0xdc9e87a367c3d9cb!2sLagos!5e0!3m2!1sen!2sng!4v1625060000000!5m2!1sen!2sng" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+    </div>
+    
+    <!-- Footer -->
+    <footer class="py-12 bg-gray-900">
+        <div class="container mx-auto px-6">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="mb-6 md:mb-0">
+                    <a href="#" class="text-2xl font-bold gradient-text">KEELAM</a>
+                    <p class="text-gray-400 mt-2">Innovative digital design solutions.</p>
+                </div>
+                
+                <div class="flex flex-wrap justify-center gap-6 md:gap-12 mb-6 md:mb-0">
+                    <a href="#home" class="text-gray-400 hover:text-keelam-blue transition">Home</a>
+                    <a href="#services" class="text-gray-400 hover:text-keelam-blue transition">Services</a>
+                    <a href="#portfolio" class="text-gray-400 hover:text-keelam-blue transition">Portfolio</a>
+                    <a href="#about" class="text-gray-400 hover:text-keelam-blue transition">About</a>
+                    <a href="#contact" class="text-gray-400 hover:text-keelam-blue transition">Contact</a>
+                </div>
+                
+                <div class="flex space-x-4">
+                    <a href="#" class="social-icon w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-keelam-purple">
+                        <i class="fab fa-facebook-f"></i>
+                    </a>
+                    <a href="#" class="social-icon w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-keelam-blue">
+                        <i class="fab fa-twitter"></i>
+                    </a>
+                    <a href="#" class="social-icon w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-keelam-pink">
+                        <i class="fab fa-instagram"></i>
+                    </a>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-800 mt-12 pt-8 flex flex-col md:flex-row justify-between items-center">
+                <p class="text-gray-500 text-sm mb-4 md:mb-0">© 2023 Keelam Design Studio. All rights reserved.</p>
+                <div class="flex space-x-6">
+                    <a href="#" class="text-gray-500 hover:text-gray-300 text-sm">Privacy Policy</a>
+                    <a href="#" class="text-gray-500 hover:text-gray-300 text-sm">Terms of Service</a>
+                    <a href="#" class="text-gray-500 hover:text-gray-300 text-sm">Cookies</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+    
+    <script>
+        // Mobile menu toggle
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+        
+        mobileMenuButton.addEventListener('click', () => {
+            mobileMenu.classList.toggle('open');
+        });
+        
+        // Portfolio filtering
+        const filterButtons = document.querySelectorAll('.filter-btn');
+        const portfolioItems = document.querySelectorAll('.portfolio-item');
+        
+        filterButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                // Remove active class from all buttons
+                filterButtons.forEach(btn => btn.classList.remove('active'));
+                // Add active class to clicked button
+                button.classList.add('active');
+                
+                const filterValue = button.getAttribute('data-filter');
+                
+                portfolioItems.forEach(item => {
+                    if (filterValue === 'all' || item.getAttribute('data-category') === filterValue) {
+                        item.style.display = 'block';
+                    } else {
+                        item.style.display = 'none';
+                    }
+                });
+            });
+        });
+        
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                // Close mobile menu if open
+                if (mobileMenu.classList.contains('open')) {
+                    mobileMenu.classList.remove('open');
+                }
+                
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+        
+        // Add scroll animation to elements
+        const animateOnScroll = () => {
+            const elements = document.querySelectorAll('.service-card, .portfolio-item, .testimonial');
+            
+            elements.forEach(element => {
+                const elementPosition = element.getBoundingClientRect().top;
+                const windowHeight = window.innerHeight;
+                
+                if (elementPosition < windowHeight - 100) {
+                    element.classList.add('animate__animated', 'animate__fadeInUp');
+                }
+            });
+        };
+        
+        // Run on initial load
+        window.addEventListener('load', animateOnScroll);
+        // Run on scroll
+        window.addEventListener('scroll', animateOnScroll);
+    </script>
+</body>
+</html>
